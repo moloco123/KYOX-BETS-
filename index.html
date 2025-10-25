@@ -28,9 +28,18 @@
         }
       }
 
+      @keyframes wave {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
       .sparkle-letter {
         display: inline-block;
-        animation: sparkle 2.5s infinite ease-in-out;
+        animation: sparkle 2.5s infinite ease-in-out, wave 2s infinite ease-in-out;
       }
 
       .font-title {
