@@ -1,7 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { Prediction } from '../types';
 
-// FIX: Initialize GoogleGenAI with API Key from environment variables.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const schema = {
@@ -42,7 +41,6 @@ const schema = {
 
 export const fetchPredictions = async (): Promise<Prediction[]> => {
   try {
-    // FIX: Use ai.models.generateContent to generate structured data.
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: "Generate 20 realistic soccer betting predictions for upcoming matches across various popular leagues. Include a mix of FREE and VIP tips. Ensure the data is in JSON format according to the provided schema. The kickoff times should be realistic for the near future.",
@@ -52,7 +50,6 @@ export const fetchPredictions = async (): Promise<Prediction[]> => {
       },
     });
     
-    // FIX: Access the generated text with the .text property and parse it.
     const jsonString = response.text.trim();
     const parsedPredictions: Omit<Prediction, 'id' | 'result'>[] = JSON.parse(jsonString);
 
