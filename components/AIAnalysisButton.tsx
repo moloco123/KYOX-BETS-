@@ -27,7 +27,6 @@ const AIAnalysisButton: React.FC<AIAnalysisButtonProps> = ({ prediction }) => {
     setError(null);
 
     try {
-      // FIX: Initialize GoogleGenAI right before use to ensure up-to-date API key.
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const prompt = `Provide a brief analysis for the following soccer bet prediction:
       - Match: ${prediction.match_name}
@@ -36,13 +35,11 @@ const AIAnalysisButton: React.FC<AIAnalysisButtonProps> = ({ prediction }) => {
       - Odds: ${prediction.odds}
       Focus on team form, head-to-head stats, and key player news that justify this prediction. Keep it concise and easy to understand for a general audience.`;
 
-      // FIX: Use ai.models.generateContent to generate text.
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
       });
 
-      // FIX: Access the generated text using the .text property.
       setAnalysis(response.text);
     } catch (err) {
       console.error(err);

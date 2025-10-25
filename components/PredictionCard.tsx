@@ -50,9 +50,11 @@ const PredictionCard: React.FC<PredictionCardProps> = ({ prediction }) => {
           <span className="text-gray-300">{t('cardOdds')}: <span className="font-bold text-green-400">{odds}</span></span>
         </div>
       </div>
-      <div className="border-t border-gray-700 pt-3 mt-3 flex justify-between items-center text-xs text-gray-400">
-        <span>{formattedDate} - {formattedTime}</span>
-        <span className={`font-bold py-1 px-2 rounded ${type === 'VIP' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white'}`}>{type}</span>
+      <div className="border-t border-gray-700 pt-3 mt-3 flex justify-between items-end text-xs text-gray-400">
+        <div>
+          <span>{formattedDate} - {formattedTime}</span>
+        </div>
+        <span className={`self-center font-bold py-1 px-2 rounded ${type === 'VIP' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white'}`}>{type}</span>
       </div>
     </motion.div>
   );
