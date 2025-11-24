@@ -1,3 +1,4 @@
+
 export type Prediction = {
   id: number;
   match_name: string;
@@ -38,4 +39,7 @@ export type SiteSettings = {
   facebook: string;
   threads: string;
   tiktok: string;
+  splashTitle?: string;
+  splashSubtitle?: string;
+  splashLogoUrl?: string;
 };

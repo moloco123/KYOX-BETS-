@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import BottomNav from './components/BottomNav';
 import Spinner from './components/Spinner';
+import SplashScreen from './components/SplashScreen';
 
 import HomePage from './pages/HomePage';
 import FreeTipsPage from './pages/FreeTipsPage';
@@ -28,6 +29,7 @@ const App: React.FC = () => {
     }
   });
   const [loading, setLoading] = useState<boolean>(true);
+  const [showSplash, setShowSplash] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
@@ -45,7 +47,11 @@ const App: React.FC = () => {
         facebook: "#",
         threads: "#",
         tiktok: "#",
+        splashTitle: "GEMINI BETS",
+        splashSubtitle: "Welcome",
+        splashLogoUrl: "",
       };
+      // Merge defaults with saved data to ensure new fields exist for old saves
       return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
     } catch (e) {
       return {
@@ -59,6 +65,9 @@ const App: React.FC = () => {
         facebook: "#",
         threads: "#",
         tiktok: "#",
+        splashTitle: "GEMINI BETS",
+        splashSubtitle: "Welcome",
+        splashLogoUrl: "",
       };
     }
   });
@@ -112,26 +121,36 @@ const App: React.FC = () => {
 
 
   useEffect(() => {
-    const loadPredictions = async () => {
-      // Only fetch from API if there are no predictions in local storage
-      if (predictions.length > 0) {
-        setLoading(false);
-        return;
-      }
-      try {
+    const initApp = async () => {
+      // Enforce a minimum splash screen duration (3 seconds)
+      const splashTimer = new Promise(resolve => setTimeout(resolve, 3000));
+      
+      // Handle predictions fetching without blocking the splash screen
+      if (predictions.length === 0) {
         setLoading(true);
-        const data = await fetchPredictions();
-        setPredictions(data);
-        setError(null);
-      } catch (err) {
-        setError(t('errorFailedPredictions'));
-        console.error(err);
-      } finally {
+        fetchPredictions()
+          .then(data => {
+            setPredictions(data);
+            setError(null);
+          })
+          .catch(err => {
+            setError(t('errorFailedPredictions'));
+            console.error(err);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      } else {
         setLoading(false);
       }
+
+      // Wait only for the splash timer
+      await splashTimer;
+      setShowSplash(false);
     };
-    loadPredictions();
-  }, []);
+
+    initApp();
+  }, []); // Run once on mount
 
   const handleRegister = (details: Omit<User, 'status' | 'role'> & { adminKey?: string }) => {
     if (allUsers.find(u => u.email === details.email)) {
@@ -280,7 +299,15 @@ const App: React.FC = () => {
     type: "tween",
     ease: "anticipate",
     duration: 0.4
-  };
+  } as const;
+
+  if (showSplash) {
+    return <SplashScreen 
+      title={siteSettings.splashTitle || siteSettings.siteName} 
+      subtitle={siteSettings.splashSubtitle} 
+      logoUrl={siteSettings.splashLogoUrl}
+    />;
+  }
 
   return (
     <div className="bg-gray-900 text-gray-100 min-h-screen font-sans pb-20">

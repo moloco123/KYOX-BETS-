@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { User, Prediction, SiteSettings, Comment } from '../types';
@@ -256,17 +257,28 @@ const AdminPage: React.FC<AdminPageProps> = (props) => {
       <section className="bg-gray-800 rounded-lg shadow-lg p-4">
         <h3 className="text-2xl font-semibold text-gray-200 mb-4 border-b-2 border-gray-700 pb-2">{t('adminSiteSettings')}</h3>
         <form onSubmit={handleSettingsSubmit} className="space-y-4">
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsSiteName')}</label><input type="text" name="siteName" value={settingsFormData.siteName} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsSiteName')}</label><input type="text" name="siteName" value={settingsFormData.siteName} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+             <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsAdminKey')}</label><input type="text" name="adminKey" value={settingsFormData.adminKey} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsSplashTitle')}</label><input type="text" name="splashTitle" placeholder="Defaults to Site Name" value={settingsFormData.splashTitle || ''} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+             <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsSplashSubtitle')}</label><input type="text" name="splashSubtitle" placeholder="e.g. Welcome" value={settingsFormData.splashSubtitle || ''} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+          </div>
+          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsSplashLogo')}</label><input type="text" name="splashLogoUrl" placeholder="Image URL (e.g., https://...)" value={settingsFormData.splashLogoUrl || ''} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+
           <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsContactNumber')}</label><input type="text" name="contactNumber" value={settingsFormData.contactNumber} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
           <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsContactEmail')}</label><input type="email" name="email" value={settingsFormData.email} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
           <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsTelegram')}</label><input type="text" name="telegram" placeholder="username (without @)" value={settingsFormData.telegram} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsAdminKey')}</label><input type="text" name="adminKey" value={settingsFormData.adminKey} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+          
           <h4 className="text-lg font-semibold text-gray-300 pt-2 border-t border-gray-700">{t('adminSettingsSocials')}</h4>
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsYouTube')}</label><input type="url" name="youtube" value={settingsFormData.youtube} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsInstagram')}</label><input type="url" name="instagram" value={settingsFormData.instagram} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsFacebook')}</label><input type="url" name="facebook" value={settingsFormData.facebook} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsThreads')}</label><input type="url" name="threads" value={settingsFormData.threads} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
-          <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsTikTok')}</label><input type="url" name="tiktok" value={settingsFormData.tiktok} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsYouTube')}</label><input type="url" name="youtube" value={settingsFormData.youtube} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+            <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsInstagram')}</label><input type="url" name="instagram" value={settingsFormData.instagram} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+            <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsFacebook')}</label><input type="url" name="facebook" value={settingsFormData.facebook} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+            <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsThreads')}</label><input type="url" name="threads" value={settingsFormData.threads} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+            <div><label className="block text-gray-400 text-sm font-bold mb-1">{t('adminSettingsTikTok')}</label><input type="url" name="tiktok" value={settingsFormData.tiktok} onChange={handleSettingsChange} className="w-full bg-gray-700 text-white rounded py-2 px-3" /></div>
+          </div>
 
           <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{t('adminSettingsSave')}</button>
         </form>

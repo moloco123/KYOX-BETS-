@@ -1,3 +1,4 @@
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -107,6 +108,9 @@ i18n
           adminNoComments: 'No user comments yet.',
           adminSiteSettings: 'Site Settings',
           adminSettingsSiteName: 'Site Name',
+          adminSettingsSplashTitle: 'Splash Screen Title',
+          adminSettingsSplashSubtitle: 'Splash Screen Subtitle',
+          adminSettingsSplashLogo: 'Splash Screen Logo URL',
           adminSettingsContactNumber: 'Contact Number (WhatsApp)',
           adminSettingsContactEmail: 'Contact Email',
           adminSettingsTelegram: 'Telegram Username',
@@ -258,6 +262,9 @@ i18n
           adminNoComments: 'Hakuna maoni ya watumiaji bado.',
           adminSiteSettings: 'Mipangilio ya Tovuti',
           adminSettingsSiteName: 'Jina la Tovuti',
+          adminSettingsSplashTitle: 'Kichwa cha Skrini ya Kupakia',
+          adminSettingsSplashSubtitle: 'Kichwa Kidogo cha Skrini ya Kupakia',
+          adminSettingsSplashLogo: 'URL ya Nembo ya Skrini ya Kupakia',
           adminSettingsContactNumber: 'Namba ya Mawasiliano (WhatsApp)',
           adminSettingsContactEmail: 'Barua Pepe ya Mawasiliano',
           adminSettingsTelegram: 'Jina la Mtumiaji la Telegram',
